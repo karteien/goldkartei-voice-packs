@@ -4,14 +4,17 @@ Recordings that give [Goldkartei](https://github.com/karteien/goldkartei)'s Germ
 decks sound: with a voice pack, every card says its word aloud, and the back of the card has a
 button to hear it again.
 
-A **voice pack** is one voice's recordings of every word in the decks. There are two:
+A **voice pack** is one voice's recordings of every word in the decks. There are five:
 
 | Voice pack | Voice | Accent |
 |---|---|---|
 | `de-at/aws-hannah` | Hannah (Amazon Polly) | Standard Austrian German |
 | `de-de/aws-daniel` | Daniel (Amazon Polly) | Standard German as spoken in Germany |
+| `de-de/aws-lennart` | Lennart (Amazon Polly) | Standard German as spoken in Germany |
+| `de-de/aws-tina` | Tina (Amazon Polly) | Standard German as spoken in Germany |
+| `de-de/aws-vicki` | Vicki (Amazon Polly) | Standard German as spoken in Germany |
 
-A deck is built with one voice pack, and its file name says which: `Goldkartei v0.3 [hannah].apkg`.
+A deck is built with one voice pack, and its file name says which: `Goldkartei v0.3 [de-at Hannah].apkg`.
 
 ## How to use a voice pack
 
@@ -101,13 +104,14 @@ git -C goldkartei-voice-packs sparse-checkout add de-de/aws-daniel
 ## Technical details
 
 Each voice pack is a folder `<variety>/<vendor>-<name>`. The variety is the pronunciation the
-voice speaks, as a lowercased language tag (`de-at`, `de-de`), and the last part of the folder's
-name is the name a deck built with it carries (`[hannah]`).
+voice speaks, as a lowercased language tag (`de-at`, `de-de`), and a deck built with it carries
+the variety and the voice's name at the end of its file name (`[de-at Hannah]`).
 
-Each recording is an MP3 named after the SSML it says (a UUID v5), with an ID3v2.4 tag that
-records the text, the IPA, the SSML and the voice. Goldkartei's data names the recording each
-entry plays, and its build checks every recording against its tag. The recordings are made from
-that data by Goldkartei's `tools/pronunciation/generate.py`; Goldkartei's
+Each recording is an MP3 named after what its voice was given (a UUID v5): the word as it is
+written, or, for the few words spelled alike but said differently (*Band*), SSML with the word's
+IPA. Its ID3v2.4 tag records the text, the IPA, that input and the voice. Goldkartei's data names
+the recording each entry plays, and its build checks every recording against its tag. The recordings
+are made from that data by Goldkartei's `tools/pronunciation/generate.py`; Goldkartei's
 `sources/voice/README.md` explains the naming and the tags.
 
 The tags of this repository follow Goldkartei's: `v0.3` here holds the recordings that go with
@@ -115,14 +119,15 @@ Goldkartei `v0.3`, and `master` has the newest.
 
 ## Sources and credits
 
-- The pronunciations the voices speak are Goldkartei's: IPA largely from
-  [Wiktionary](https://www.wiktionary.org/) (German and English editions), by Wiktionary
-  contributors, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/),
-  adapted by Goldkartei's rules for Standard Austrian German and completed by hand and by model
-  where Wiktionary had none. Each recording's ID3 tag records the IPA and SSML it was made from.
-- The voices are Amazon Polly's (Hannah and Daniel, generative engine). Amazon Polly is a
-  trademark of Amazon.com, Inc. or its affiliates; this repository is not affiliated with or
-  endorsed by Amazon.
+- The voices read Goldkartei's words as they are written. For the few words spelled alike but
+  said differently, they follow Goldkartei's IPA, and every recording's ID3 tag records the
+  word's IPA: largely from [Wiktionary](https://www.wiktionary.org/) (German and English
+  editions), by Wiktionary contributors, licensed under
+  [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), adapted by Goldkartei's rules
+  for Standard Austrian German and completed by hand and by model where Wiktionary had none.
+- The voices are Amazon Polly's (Hannah, Daniel, Lennart, Tina and Vicki, generative engine).
+  Amazon Polly is a trademark of Amazon.com, Inc. or its affiliates; this repository is not
+  affiliated with or endorsed by Amazon.
 
 ## License
 
